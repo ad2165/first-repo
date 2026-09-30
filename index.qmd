@@ -19,3 +19,19 @@ storms |>
 
 ```
 
+```{r}
+library(tidyverse)
+
+#count number of observations each year for hurricanes with wind above the 75th percentile for observations/hurricanes IN THAT YEAR. 
+
+storms |> 
+  filter(status == "hurricanes") |>
+  group_by(year) |> 
+  mutate(threshold = quantile(wind, probs = 0.75)) |> 
+  ungroup() |> #always good to do 
+  filter(wind > threshold) |>
+  count(year)
+#output seems to be not working for this??
+
+```
+
